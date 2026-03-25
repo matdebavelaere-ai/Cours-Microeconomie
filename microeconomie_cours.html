@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours de Microéconomie</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --ink-light: #3d3d5c;
+    --paper: #faf8f3;
+    --cream: #f2ede2;
+    --accent: #c0392b;
+    --accent2: #2c7873;
+    --accent3: #e67e22;
+    --gold: #b8860b;
+    --rule: #d4c9b0;
+    --formula-bg: #1a1a2e;
+    --formula-text: #e8f4f8;
+    --highlight: #fff3cd;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 60px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192,57,43,0.18) 0%, transparent 70%);
+  }
+  .cover::after {
+    content: 'μ';
+    position: absolute;
+    bottom: -40px; right: 60px;
+    font-family: 'Playfair Display', serif;
+    font-size: 320px;
+    color: rgba(255,255,255,0.04);
+    font-weight: 900;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .cover-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 76px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+  .cover h1 span { color: var(--accent); }
+  .cover-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(250,248,243,0.65);
+    max-width: 520px;
+    margin-bottom: 48px;
+    font-style: italic;
+  }
+  .cover-toc {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    max-width: 800px;
+  }
+  .cover-toc-item {
+    border-left: 2px solid var(--accent);
+    padding: 6px 14px;
+    font-size: 13px;
+    color: rgba(250,248,243,0.8);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+  .cover-toc-item span {
+    display: block;
+    font-size: 10px;
+    color: rgba(250,248,243,0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 48px;
+  }
+
+  /* ── CHAPTER HEADERS ── */
+  .chapter {
+    margin-bottom: 70px;
+  }
+  .chapter-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .chapter h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.15;
+    padding-bottom: 16px;
+    border-bottom: 3px solid var(--ink);
+    margin-bottom: 32px;
+  }
+  .chapter h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 36px 0 14px;
+    padding-left: 14px;
+    border-left: 4px solid var(--accent2);
+  }
+  .chapter h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink-light);
+    margin: 24px 0 8px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+  p { margin-bottom: 16px; }
+
+  /* ── DEFINITION BOXES ── */
+  .def-box {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-left: 5px solid var(--accent2);
+    border-radius: 2px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .def-box .def-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 8px;
+  }
+  .def-box p { margin: 0; font-size: 16px; }
+
+  /* ── FORMULA BLOCKS ── */
+  .formula-block {
+    background: var(--formula-bg);
+    color: var(--formula-text);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin: 24px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+  .formula-block::before {
+    content: '∑';
+    position: absolute;
+    right: 20px; top: 10px;
+    font-size: 60px;
+    color: rgba(255,255,255,0.04);
+    font-family: 'Playfair Display', serif;
+  }
+  .formula-block .f-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .formula-block .f-main {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 8px;
+    display: block;
+    line-height: 1.6;
+  }
+  .formula-block .f-desc {
+    font-size: 12px;
+    color: rgba(232,244,248,0.55);
+    line-height: 1.7;
+  }
+  .formula-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  @media (max-width: 640px) { .formula-grid { grid-template-columns: 1fr; } }
+
+  /* ── KEY POINTS ── */
+  .key-points {
+    background: var(--highlight);
+    border: 1px solid #f0d060;
+    border-radius: 2px;
+    padding: 18px 24px;
+    margin: 20px 0;
+  }
+  .key-points .kp-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .key-points ul { padding-left: 18px; }
+  .key-points li { margin-bottom: 6px; font-size: 15.5px; }
+
+  /* ── COMPARISON TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 15px;
+  }
+  thead tr {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  th {
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: var(--cream); }
+  tbody tr:hover { background: rgba(44,120,115,0.07); }
+
+  /* ── SVG GRAPHS ── */
+  .graph-wrap {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 28px 28px 16px;
+    margin: 28px 0;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .graph-wrap figcaption {
+    font-size: 13px;
+    color: var(--ink-light);
+    font-style: italic;
+    margin-top: 12px;
+  }
+  .graph-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 16px;
+    text-align: left;
+  }
+
+  /* ── DIVIDER ── */
+  .chapter-divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 60px 0;
+    position: relative;
+  }
+  .chapter-divider::after {
+    content: '◆';
+    position: absolute;
+    left: 50%; top: -10px;
+    transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 10px;
+    color: var(--rule);
+    font-size: 14px;
+  }
+
+  /* ── AGENTS CARDS ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin: 24px 0;
+  }
+  .card {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--accent);
+    border-radius: 2px;
+    padding: 16px 18px;
+    font-size: 15px;
+  }
+  .card:nth-child(2) { border-top-color: var(--accent2); }
+  .card:nth-child(3) { border-top-color: var(--accent3); }
+  .card:nth-child(4) { border-top-color: var(--gold); }
+  .card:nth-child(5) { border-top-color: #8e44ad; }
+  .card-icon { font-size: 22px; margin-bottom: 8px; }
+  .card-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .card-desc { font-size: 13px; color: var(--ink-light); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(250,248,243,0.4);
+    text-align: center;
+    padding: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+  footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     COUVERTURE
+════════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <p class="cover-label">Cours complet · Niveau Licence / Prépa</p>
+  <h1>Micro<span>économie</span></h1>
+  <p class="cover-subtitle">Des fondements théoriques aux mécanismes de marché — avec les formules essentielles et les représentations graphiques</p>
+  <div class="cover-toc">
+    <div class="cover-toc-item"><span>Chapitre I</span>Fondements & Notions clés</div>
+    <div class="cover-toc-item"><span>Chapitre II</span>Le Consommateur</div>
+    <div class="cover-toc-item"><span>Chapitre III</span>Le Producteur</div>
+    <div class="cover-toc-item"><span>Chapitre IV</span>Équilibre du Marché</div>
+    <div class="cover-toc-item"><span>Chapitre V</span>Détermination des Prix</div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ════════════════════════════════════════════════════════════
+     CHAPITRE I — FONDEMENTS
+════════════════════════════════════════════════════════════ -->
+<div class="chapter" id="ch1">
+  <p class="chapter-num">Chapitre I</p>
+  <h2>Fondements &amp; Notions Essentielles</h2>
+
+  <h3>1.1 Qu'est-ce que la Microéconomie ?</h3>
+  <div class="def-box">
+    <p class="def-title">Définition</p>
+    <p>La <strong>microéconomie</strong> est la branche de l'économie qui analyse le comportement des <em>unités économiques individuelles</em> (consommateurs, entreprises, marchés) et les mécanismes par lesquels ces agents prennent leurs décisions d'allocation des ressources rares.</p>
+  </div>
+  <p>Elle repose sur le postulat de <strong>rationalité</strong> : chaque agent cherche à maximiser son utilité (consommateur) ou son profit (producteur) sous contrainte de ressources limitées. La microéconomie s'appuie sur des outils mathématiques précis — fonctions, dérivées, optimisation — pour modéliser ces comportements.</p>
+
+  <h3>1.2 Micro vs Macro économie</h3>
+  <table>
+    <thead><tr><th>Dimension</th><th>Microéconomie</th><th>Macroéconomie</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Objet d'étude</strong></td><td>Agents individuels (ménages, firmes)</td><td>Économie dans son ensemble</td></tr>
+      <tr><td><strong>Variables clés</strong></td><td>Prix relatifs, quantités, utilité, profit</td><td>PIB, inflation, chômage, taux d'intérêt</td></tr>
+      <tr><td><strong>Marchés analysés</strong></td><td>Un marché ou un secteur</td><td>Tous les marchés simultanément</td></tr>
+      <tr><td><strong>Horizon</strong></td><td>Court et moyen terme</td><td>Court, moyen, long terme</td></tr>
+      <tr><td><strong>Exemples de questions</strong></td><td>Comment le consommateur choisit-il entre deux biens ?</td><td>Pourquoi le chômage augmente-t-il en récession ?</td></tr>
+    </tbody>
+  </table>
+
+  <h3>1.3 Les Agents Économiques</h3>
+  <p>La microéconomie reconnaît cinq grands types d'agents dont les comportements structurent l'activité économique :</p>
+  <div class="cards">
+    <div class="card"><div class="card-icon">🏠</div><div class="card-name">Ménages</div><div class="card-desc">Consomment des biens et offrent du travail. Maximisent leur utilité.</div></div>
+    <div class="card"><div class="card-icon">🏭</div><div class="card-name">Entreprises</div><div class="card-desc">Produisent des biens et services. Maximisent leur profit.</div></div>
+    <div class="card"><div class="card-icon">🏛️</div><div class="card-name">État</div><div class="card-desc">Régule, redistribue, produit des biens collectifs.</div></div>
+    <div class="card"><div class="card-icon">🏦</div><div class="card-name">Institutions financières</div><div class="card-desc">Intermédient l'épargne et le financement.</div></div>
+    <div class="card"><div class="card-icon">🌍</div><div class="card-name">Reste du monde</div><div class="card-desc">Échanges extérieurs, importations, exportations.</div></div>
+  </div>
+
+  <h3>1.4 La Notion de Consommation</h3>
+  <div class="def-box">
+    <p class="def-title">Définition</p>
+    <p>La <strong>consommation</strong> est l'utilisation de biens et services pour satisfaire des besoins. On distingue la consommation <em>finale</em> (satisfait directement un besoin) de la consommation <em>intermédiaire</em> (intrant dans un processus de production).</p>
+  </div>
+  <p>En microéconomie, la consommation est encadrée par la <strong>contrainte budgétaire</strong> : un ménage ne peut dépenser plus que son revenu. Notons <em>p₁</em>, <em>p₂</em> les prix de deux biens et <em>R</em> le revenu :</p>
+  <div class="formula-block">
+    <span class="f-label">Contrainte Budgétaire</span>
+    <span class="f-main">p₁·x₁ + p₂·x₂ ≤ R</span>
+    <span class="f-desc">
+      p₁, p₂ : prix des biens 1 et 2<br>
+      x₁, x₂ : quantités consommées<br>
+      R : revenu disponible du ménage
+    </span>
+  </div>
+</div>
+
+<hr class="chapter-divider">
+
+<!-- ════════════════════════════════════════════════════════════
+     CHAPITRE II — LE CONSOMMATEUR
+════════════════════════════════════════════════════════════ -->
+<div class="chapter" id="ch2">
+  <p class="chapter-num">Chapitre II</p>
+  <h2>Le Comportement du Consommateur</h2>
+
+  <h3>2.1 La Fonction d'Utilité</h3>
+  <p>L'utilité mesure le niveau de satisfaction qu'un consommateur retire de la consommation d'un panier de biens. La <strong>fonction d'utilité</strong> U(x₁, x₂) associe un nombre réel à chaque panier.</p>
+  <div class="formula-grid">
+    <div class="formula-block">
+      <span class="f-label">Utilité Cobb-Douglas</span>
+      <span class="f-main">U(x₁,x₂) = x₁ᵅ · x₂ᵝ</span>
+      <span class="f-desc">α, β > 0 : paramètres de préférence<br>Très utilisée en économie appliquée</span>
+    </div>
+    <div class="formula-block">
+      <span class="f-label">Utilité Log-Linéaire</span>
+      <span class="f-main">U(x₁,x₂) = α·ln(x₁) + β·ln(x₂)</span>
+      <span class="f-desc">Propriété utile : ln simplifie l'optimisation<br>Utilisée pour les biens normaux</span>
+    </div>
+  </div>
+
+  <h3>2.2 L'Utilité Marginale</h3>
+  <div class="def-box">
+    <p class="def-title">Définition</p>
+    <p>L'<strong>utilité marginale</strong> est la variation de satisfaction obtenue en consommant une unité supplémentaire d'un bien. Elle est décroissante : plus on consomme un bien, moins chaque unité additionnelle apporte de satisfaction (<em>loi de l'utilité marginale décroissante</em>).</p>
+  </div>
+  <div class="formula-block">
+    <span class="f-label">Utilité Marginale</span>
+    <span class="f-main">Um₁ = ∂U/∂x₁ &nbsp;&nbsp;&nbsp; Um₂ = ∂U/∂x₂</span>
+    <span class="f-desc">
+      Condition de décroissance : ∂²U/∂x₁² &lt; 0<br>
+      Condition d'optimum : Um₁/p₁ = Um₂/p₂ (égalisation des utilités marginales pondérées)
+    </span>
+  </div>
+
+  <h3>2.3 Les Courbes d'Indifférence</h3>
+  <p>Une courbe d'indifférence regroupe tous les paniers (x₁, x₂) procurant le même niveau d'utilité U₀. Elles sont <em>décroissantes</em>, <em>convexes</em> et ne se croisent pas.</p>
+
+  <!-- GRAPH: Courbes d'indifférence -->
+  <div class="graph-wrap">
+    <p class="graph-title">Courbes d'Indifférence &amp; Droite de Budget</p>
+    <svg viewBox="0 0 480 370" xmlns="http://www.w3.org/2000/svg" style="max-width:480px;width:100%;">
+      <defs>
+        <marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a2e"/>
+        </marker>
+      </defs>
+      <!-- Axes -->
+      <line x1="50" y1="320" x2="440" y2="320" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah)"/>
+      <line x1="50" y1="320" x2="50" y2="20" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah)"/>
+      <text x="450" y="324" font-size="14" font-family="'Source Serif 4',serif" fill="#1a1a2e">x₁</text>
+      <text x="36" y="16" font-size="14" font-family="'Source Serif 4',serif" fill="#1a1a2e">x₂</text>
+
+      <!-- Grid lines subtle -->
+      <line x1="150" y1="320" x2="150" y2="50" stroke="#e0ddd5" stroke-width="0.8" stroke-dasharray="4,4"/>
+      <line x1="250" y1="320" x2="250" y2="50" stroke="#e0ddd5" stroke-width="0.8" stroke-dasharray="4,4"/>
+      <line x1="350" y1="320" x2="350" y2="50" stroke="#e0ddd5" stroke-width="0.8" stroke-dasharray="4,4"/>
+      <line x1="50" y1="220" x2="420" y2="220" stroke="#e0ddd5" stroke-width="0.8" stroke-dasharray="4,4"/>
+      <line x1="50" y1="150" x2="420" y2="150" stroke="#e0ddd5" stroke-width="0.8" stroke-dasharray="4,4"/>
+      <line x1="50" y1="80" x2="420" y2="80" stroke="#e0ddd5" stroke-width="0.8" stroke-dasharray="4,4"/>
+
+      <!-- Indifference curves U1, U2, U3 — hyperbola approx -->
+      <!-- U1: small -->
+      <path d="M80,310 Q100,200 160,130 Q220,80 310,65" stroke="#2c7873" stroke-width="2" fill="none"/>
+      <text x="315" y="63" font-size="12" font-family="'JetBrains Mono',monospace" fill="#2c7873">U₁</text>
+      <!-- U2: medium -->
+      <path d="M80,320 Q120,280 170,210 Q230,145 320,110 Q380,90 420,80" stroke="#2c7873" stroke-width="2" fill="none" stroke-dasharray="none"/>
+      <text x="424" y="79" font-size="12" font-family="'JetBrains Mono',monospace" fill="#2c7873">U₂</text>
+      <!-- U3: large, partially out -->
+      <path d="M100,320 Q150,290 210,230 Q280,175 360,148 Q400,137 430,130" stroke="#2c7873" stroke-width="2" fill="none" stroke-dasharray="6,3" opacity="0.6"/>
+      <text x="434" y="129" font-size="12" font-family="'JetBrains Mono',monospace" fill="#2c7873" opacity="0.6">U₃</text>
+
+      <!-- Budget line: p1*x1 + p2*x2 = R → from (0, R/p2) to (R/p1, 0) -->
+      <!-- Map: x1 in [0,360] → screen x = 50+x1; R/p1 = 360 → screen x=410; R/p2=280 → screen y=40 -->
+      <line x1="50" y1="40" x2="410" y2="320" stroke="#c0392b" stroke-width="2.5"/>
+      <text x="55" y="36" font-size="12" font-family="'JetBrains Mono',monospace" fill="#c0392b">R/p₂</text>
+      <text x="398" y="340" font-size="12" font-family="'JetBrains Mono',monospace" fill="#c0392b">R/p₁</text>
+
+      <!-- Optimum point tangency -->
+      <!-- Budget: y_screen = 40 + (320-40)/360 * (410-50 - (x_screen-50)) = 40 + 280/360*(360-(x-50)) -->
+      <!-- At x_screen=210 (x1=160), y = 40+280/360*(360-160)= 40+280/360*200= 40+155.6≈196 -->
+      <circle cx="210" cy="196" r="7" fill="#c0392b" stroke="white" stroke-width="2"/>
+      <line x1="210" y1="196" x2="210" y2="320" stroke="#c0392b" stroke-width="1" stroke-dasharray="5,3" opacity="0.7"/>
+      <line x1="50" y1="196" x2="210" y2="196" stroke="#c0392b" stroke-width="1" stroke-dasharray="5,3" opacity="0.7"/>
+      <text x="214" y="193" font-size="12" font-family="'Source Serif 4',serif" fill="#c0392b" font-style="italic">E* (optimum)</text>
+      <text x="195" y="336" font-size="12" font-family="'JetBrains Mono',monospace" fill="#1a1a2e">x₁*</text>
+      <text x="26" y="200" font-size="12" font-family="'JetBrains Mono',monospace" fill="#1a1a2e">x₂*</text>
+
+      <!-- Legend -->
+      <line x1="60" y1="355" x2="90" y2="355" stroke="#2c7873" stroke-width="2"/>
+      <text x="94" y="359" font-size="11" font-family="'Source Serif 4',serif" fill="#1a1a2e">Courbes d'indifférence</text>
+      <line x1="240" y1="355" x2="270" y2="355" stroke="#c0392b" stroke-width="2.5"/>
+      <text x="274" y="359" font-size="11" font-family="'Source Serif 4',serif" fill="#1a1a2e">Droite de budget</text>
+    </svg>
+    <figcaption>En E*, la courbe d'indifférence est tangente à la droite de budget : c'est l'optimum du consommateur.</figcaption>
+  </div>
+
+  <h3>2.4 Le Taux Marginal de Substitution (TMS)</h3>
+  <div class="def-box">
+    <p class="def-title">Définition</p>
+    <p>Le <strong>TMS</strong> mesure la quantité de bien 2 à laquelle le consommateur est prêt à renoncer pour obtenir une unité supplémentaire de bien 1, tout en maintenant son niveau d'utilité constant.</p>
+  </div>
+  <div class="formula-block">
+    <span class="f-label">Taux Marginal de Substitution</span>
+    <span class="f-main">TMS₁₂ = −dx₂/dx₁ = Um₁/Um₂</span>
+    <span class="f-desc">
+      Condition d'optimum (tangence) : TMS₁₂ = p₁/p₂<br>
+      Soit : Um₁/p₁ = Um₂/p₂ (utilités marginales pondérées égales)<br>
+      Le long d'une courbe d'indifférence : Um₁·dx₁ + Um₂·dx₂ = 0
+    </span>
+  </div>
+
+  <h3>2.5 La Demande Individuelle et le Surplus du Consommateur</h3>
+  <p>En résolvant le programme d'optimisation max U(x₁,x₂) s.c. p₁x₁+p₂x₂=R, on obtient les <strong>fonctions de demande marshalliennes</strong> :</p>
+  <div class="formula-block">
+    <span class="f-label">Demande Marshallienne (Cobb-Douglas)</span>
+    <span class="f-main">x₁*(p₁,p₂,R) = (α/(α+β)) · R/p₁</span>
+    <span class="f-desc">
+      La part du revenu consacrée au bien 1 est constante = α/(α+β)<br>
+      Élasticité-prix de la demande : ε = (∂x/∂p) · (p/x)<br>
+      Pour Cobb-Douglas : ε = −1 (élasticité unitaire)
+    </span>
+  </div>
+  <div class="formula-block">
+    <span class="f-label">Surplus du Consommateur</span>
+    <span class="f-main">SC = ∫₀^x* P_D(q) dq − p* · x*</span>
+    <span class="f-desc">
+      SC : différence entre la disposition à payer et le prix effectivement payé<br>
+      P_D(q) : fonction de demande inverse (prix en fonction des quantités)<br>
+      Représenté par l'aire sous la courbe de demande, au-dessus du prix de marché
+    </span>
+  </div>
+
+  <!-- GRAPH: Courbe de demande et surplus -->
+  <div class="graph-wrap">
+    <p class="graph-title">Courbe de Demande &amp; Surplus du Consommateur</p>
+    <svg viewBox="0 0 460 340" xmlns="http://www.w3.org/2000/svg" style="max-width:460px;width:100%;">
+      <defs>
+        <marker id="ah2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a2e"/>
+        </marker>
+      </defs>
+      <!-- Surplus fill area -->
+      <polygon points="60,40 280,180 60,180" fill="rgba(44,120,115,0.15)" stroke="none"/>
+      <!-- Axes -->
+      <line x1="60" y1="290" x2="430" y2="290" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah2)"/>
+      <line x1="60" y1="290" x2="60" y2="20" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah2)"/>
+      <text x="440" y="294" font-size="14" font-family="'Source Serif 4',serif" fill="#1a1a2e">Q</text>
+      <text x="42" y="16" font-size="14" font-family="'Source Serif 4',serif" fill="#1a1a2e">P</text>
+      <!-- Demand curve -->
+      <line x1="60" y1="40" x2="380" y2="290" stroke="#c0392b" stroke-width="2.5"/>
+      <text x="382" y="295" font-size="13" font-family="'JetBrains Mono',monospace" fill="#c0392b">D</text>
+      <!-- Price line p* -->
+      <line x1="60" y1="180" x2="280" y2="180" stroke="#1a1a2e" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <!-- Quantity vertical -->
+      <line x1="280" y1="180" x2="280" y2="290" stroke="#1a1a2e" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <!-- Labels -->
+      <text x="30" y="184" font-size="13" font-family="'JetBrains Mono',monospace" fill="#1a1a2e">p*</text>
+      <text x="270" y="308" font-size="13" font-family="'JetBrains Mono',monospace" fill="#1a1a2e">Q*</text>
+      <!-- Surplus label -->
+      <text x="90" y="120" font-size="13" font-family="'Source Serif 4',serif" fill="#2c7873" font-style="italic">Surplus du</text>
+      <text x="90" y="138" font-size="13" font-family="'Source Serif 4',serif" fill="#2c7873" font-style="italic">consommateur</text>
+      <!-- dot at optimum -->
+      <circle cx="280" cy="180" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+    </svg>
+    <figcaption>L'aire du triangle vert représente le surplus du consommateur : gain net par rapport au prix de marché p*.</figcaption>
+  </div>
+
+  <div class="key-points">
+    <p class="kp-title">⚑ À retenir — Chapitre II</p>
+    <ul>
+      <li>L'optimum est au point de tangence : <strong>TMS = p₁/p₂</strong></li>
+      <li>Condition d'optimum équivalente : <strong>Um₁/p₁ = Um₂/p₂</strong></li>
+      <li>L'élasticité-prix mesure la sensibilité de la demande aux variations de prix</li>
+      <li>Pour un bien normal : ε &lt; 0 (relation inverse prix/quantité)</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="chapter-divider">
+
+<!-- ════════════════════════════════════════════════════════════
+     CHAPITRE III — LE PRODUCTEUR
+════════════════════════════════════════════════════════════ -->
+<div class="chapter" id="ch3">
+  <p class="chapter-num">Chapitre III</p>
+  <h2>Le Comportement du Producteur</h2>
+
+  <h3>3.1 La Fonction de Production</h3>
+  <div class="def-box">
+    <p class="def-title">Définition</p>
+    <p>La <strong>fonction de production</strong> F(K, L) indique la quantité maximale de bien qu'une entreprise peut produire avec une combinaison donnée de capital K et de travail L.</p>
+  </div>
+  <div class="formula-grid">
+    <div class="formula-block">
+      <span class="f-label">Cobb-Douglas (Production)</span>
+      <span class="f-main">Q = A · Kᵅ · Lᵝ</span>
+      <span class="f-desc">A : productivité totale des facteurs<br>α+β=1 : rendements d'échelle constants<br>α+β&gt;1 : rendements croissants</span>
+    </div>
+    <div class="formula-block">
+      <span class="f-label">Produit Marginal</span>
+      <span class="f-main">Pm_L = ∂Q/∂L &nbsp; Pm_K = ∂Q/∂K</span>
+      <span class="f-desc">Loi des rendements décroissants :<br>∂²Q/∂L² &lt; 0<br>À K fixe, Pm_L décroît avec L</span>
+    </div>
+  </div>
+
+  <h3>3.2 Les Isoquantes et le TMST</h3>
+  <p>Une <strong>isoquante</strong> regroupe toutes les combinaisons (K, L) permettant de produire une même quantité Q₀. Le <strong>Taux Marginal de Substitution Technique (TMST)</strong> mesure le remplacement d'un facteur par l'autre à production constante :</p>
+  <div class="formula-block">
+    <span class="f-label">TMST — Taux Marginal de Substitution Technique</span>
+    <span class="f-main">TMST_{L,K} = −dK/dL = Pm_L / Pm_K</span>
+    <span class="f-desc">
+      Condition d'optimum (minimisation du coût) : TMST = w/r<br>
+      w : salaire (prix du travail) &nbsp;|&nbsp; r : loyer du capital<br>
+      Soit : Pm_L/w = Pm_K/r (productivités marginales pondérées égales)
+    </span>
+  </div>
+
+  <!-- GRAPH: Isoquantes -->
+  <div class="graph-wrap">
+    <p class="graph-title">Isoquantes &amp; Droite d'Isocôut</p>
+    <svg viewBox="0 0 480 370" xmlns="http://www.w3.org/2000/svg" style="max-width:480px;width:100%;">
+      <defs>
+        <marker id="ah3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a2e"/>
+        </marker>
+      </defs>
+      <line x1="50" y1="330" x2="440" y2="330" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah3)"/>
+      <line x1="50" y1="330" x2="50" y2="20" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah3)"/>
+      <text x="450" y="334" font-size="14" font-family="'Source Serif 4',serif" fill="#1a1a2e">L</text>
+      <text x="36" y="16" font-size="14" font-family="'Source Serif 4',serif" fill="#1a1a2e">K</text>
+
+      <!-- Isoquantes Q1, Q2, Q3 -->
+      <path d="M70,320 Q85,200 150,130 Q220,75 320,60" stroke="#e67e22" stroke-width="2" fill="none"/>
+      <text x="325" y="58" font-size="12" font-family="'JetBrains Mono',monospace" fill="#e67e22">Q₁</text>
+
+      <path d="M70,330 Q100,270 165,195 Q240,130 340,105 Q395,95 430,88" stroke="#e67e22" stroke-width="2" fill="none"/>
+      <text x="434" y="87" font-size="12" font-family="'JetBrains Mono',monospace" fill="#e67e22">Q₂</text>
+
+      <path d="M90,330 Q130,285 195,230 Q270,175 360,150 Q410,140 440,135" stroke="#e67e22" stroke-width="2" fill="none" stroke-dasharray="7,3" opacity="0.6"/>
+      <text x="444" y="134" font-size="12" font-family="'JetBrains Mono',monospace" fill="#e67e22" opacity="0.6">Q₃</text>
+
+      <!-- Isocoût line: C = w·L + r·K → K = C/r − (w/r)·L -->
+      <line x1="50" y1="50" x2="410" y2="330" stroke="#c0392b" stroke-width="2.5"/>
+
+      <!-- Optimum point -->
+      <circle cx="215" cy="207" r="7" fill="#c0392b" stroke="white" stroke-width="2"/>
+      <line x1="215" y1="207" x2="215" y2="330" stroke="#c0392b" stroke-width="1" stroke-dasharray="5,3" opacity="0.7"/>
+      <line x1="50" y1="207" x2="215" y2="207" stroke="#c0392b" stroke-width="1" stroke-dasharray="5,3" opacity="0.7"/>
+      <text x="220" y="203" font-size="12" font-family="'Source Serif 4',serif" fill="#c0392b" font-style="italic">E* (min coût)</text>
+      <text x="200" y="348" font-size="12" font-family="'JetBrains Mono',monospace" fill="#1a1a2e">L*</text>
+      <text x="24" y="211" font-size="12" font-family="'JetBrains Mono',monospace" fill="#1a1a2e">K*</text>
+
+      <text x="55" y="43" font-size="12" font-family="'JetBrains Mono',monospace" fill="#c0392b">C/r</text>
+      <text x="398" y="348" font-size="12" font-family="'JetBrains Mono',monospace" fill="#c0392b">C/w</text>
+    </svg>
+    <figcaption>L'optimum de production (E*) est le point de tangence entre l'isoquante et la droite d'isocoût.</figcaption>
+  </div>
+
+  <h3>3.3 Les Coûts de Production</h3>
+  <div class="formula-grid">
+    <div class="formula-block">
+      <span class="f-label">Coûts — Décomposition</span>
+      <span class="f-main">CT = CF + CV(Q)</span>
+      <span class="f-desc">CT : coût total<br>CF : coûts fixes (indépendants de Q)<br>CV : coûts variables (dépendent de Q)</span>
+    </div>
+    <div class="formula-block">
+      <span class="f-label">Coût Marginal</span>
+      <span class="f-main">Cm = dCT/dQ = dCV/dQ</span>
+      <span class="f-desc">Cm : coût de la dernière unité produite<br>Cm décroît puis croît en U (court terme)</span>
+    </div>
+    <div class="formula-block">
+      <span class="f-label">Coûts Moyens</span>
+      <span class="f-main">CVM = CV/Q &nbsp;&nbsp; CTM = CT/Q</span>
+      <span class="f-desc">CFM = CF/Q : décroît avec Q<br>Propriété : Cm croise CVM et CTM à leur minimum</span>
+    </div>
+    <div class="formula-block">
+      <span class="f-label">Profit</span>
+      <span class="f-main">π = RT − CT = p·Q − CT(Q)</span>
+      <span class="f-desc">Condition du 1er ordre : dπ/dQ = 0<br>→ p = Cm (concurrence pure et parfaite)<br>Condition du 2ème ordre : d²π/dQ² &lt; 0</span>
+    </div>
+  </div>
+
+  <!-- GRAPH: Courbes de coûts -->
+  <div class="graph-wrap">
+    <p class="graph-title">Courbes de Coûts (CM, CVM, Cm)</p>
+    <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg" style="max-width:480px;width:100%;">
+      <defs>
+        <marker id="ah4" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a2e"/>
+        </marker>
+      </defs>
+      <line x1="50" y1="300" x2="450" y2="300" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah4)"/>
+      <line x1="50" y1="300" x2="50" y2="20" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah4)"/>
+      <text x="455" y="304" font-size="14" font-family="'Source Serif 4',serif" fill="#1a1a2e">Q</text>
+      <text x="32" y="16" font-size="14" font-family="'Source Serif 4',serif" fill="#1a1a2e">Coût</text>
+
+      <!-- CTM curve: U-shaped, min at Q≈280 screen (Q=230) -->
+      <path d="M80,270 Q160,190 235,170 Q300,163 340,175 Q380,195 420,240" stroke="#2c7873" stroke-width="2.5" fill="none"/>
+      <text x="424" y="239" font-size="12" font-family="'JetBrains Mono',monospace" fill="#2c7873">CTM</text>
+
+      <!-- CVM curve: same shape but lower (no CF) -->
+      <path d="M80,310 Q160,235 240,210 Q305,200 345,210 Q385,228 425,268" stroke="#e67e22" stroke-width="2.5" fill="none"/>
+      <text x="428" y="267" font-size="12" font-family="'JetBrains Mono',monospace" fill="#e67e22">CVM</text>
+
+      <!-- Cm curve: steeper U, crosses at minima -->
+      <path d="M80,290 Q150,200 210,170 Q250,158 270,165 Q310,182 360,220 Q400,255 430,295" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+      <text x="434" y="294" font-size="12" font-family="'JetBrains Mono',monospace" fill="#c0392b">Cm</text>
+
+      <!-- Intersection points - Cm crosses CVM min at ~Q=240, Cm crosses CTM min at ~Q=300 -->
+      <!-- CVM min at about (240,210) screen -->
+      <circle cx="240" cy="210" r="5" fill="#e67e22" stroke="white" stroke-width="2"/>
+      <!-- CTM min at about (300,163) screen -->
+      <circle cx="300" cy="163" r="5" fill="#2c7873" stroke="white" stroke-width="2"/>
+
+      <!-- Dotted vertical lines at minima -->
+      <line x1="240" y1="210" x2="240" y2="300" stroke="#e67e22" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+      <line x1="300" y1="163" x2="300" y2="300" stroke="#2c7873" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+
+      <!-- Labels under x-axis -->
+      <text x="230" y="318" font-size="11" font-family="'JetBrains Mono',monospace" fill="#e67e22">Q₁</text>
+      <text x="290" y="318" font-size="11" font-family="'JetBrains Mono',monospace" fill="#2c7873">Q₂</text>
+    </svg>
+    <figcaption>Le coût marginal Cm coupe CVM à son minimum (Q₁) et CTM à son minimum (Q₂). La règle d'or : produire là où p = Cm.</figcaption>
+  </div>
+
+  <div class="key-points">
+    <p class="kp-title">⚑ À retenir — Chapitre III</p>
+    <ul>
+      <li>Optimum technique : <strong>TMST = w/r</strong> (tangence isoquante / isocoût)</li>
+      <li>Condition de maximisation du profit (CPP) : <strong>p = Cm</strong></li>
+      <li>Cm coupe toujours CVM et CTM à leur <strong>minimum</strong></li>
+      <li>À long terme : tous les coûts sont variables ; à court terme : CF ≠ 0</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="chapter-divider">
+
+<!-- ════════════════════════════════════════════════════════════
+     CHAPITRE IV — ÉQUILIBRE DU MARCHÉ
+════════════════════════════════════════════════════════════ -->
+<div class="chapter" id="ch4">
+  <p class="chapter-num">Chapitre IV</p>
+  <h2>L'Équilibre du Marché</h2>
+
+  <h3>4.1 Offre, Demande et Équilibre</h3>
+  <p>Un marché est en <strong>équilibre</strong> lorsque la quantité demandée est égale à la quantité offerte au même prix. Ce prix d'équilibre p* est tel qu'il n'y a ni excès d'offre ni excès de demande.</p>
+  <div class="formula-block">
+    <span class="f-label">Condition d'Équilibre</span>
+    <span class="f-main">Q_D(p*) = Q_O(p*)</span>
+    <span class="f-desc">
+      Q_D(p) : quantité demandée — fonction décroissante du prix<br>
+      Q_O(p) : quantité offerte — fonction croissante du prix<br>
+      Exemples linéaires : Q_D = a − b·p &nbsp;&nbsp; Q_O = c + d·p<br>
+      Prix d'équilibre : p* = (a−c)/(b+d) &nbsp;&nbsp; Q* = a − b·p*
+    </span>
+  </div>
+
+  <!-- GRAPH: Offre et Demande -->
+  <div class="graph-wrap">
+    <p class="graph-title">Équilibre Offre-Demande</p>
+    <svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" style="max-width:480px;width:100%;">
+      <defs>
+        <marker id="ah5" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a2e"/>
+        </marker>
+      </defs>
+
+      <!-- Surplus zones -->
+      <polygon points="60,40 245,200 60,200" fill="rgba(44,120,115,0.13)" stroke="none"/>
+      <polygon points="60,200 245,200 430,40 430,200" fill="rgba(192,57,43,0.10)" stroke="none"/>
+
+      <line x1="60" y1="310" x2="450" y2="310" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah5)"/>
+      <line x1="60" y1="310" x2="60" y2="20" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah5)"/>
+      <text x="455" y="314" font-size="14" font-family="'Source Serif 4',serif" fill="#1a1a2e">Q</text>
+      <text x="42" y="16" font-size="14" font-family="'Source Serif 4',serif" fill="#1a1a2e">P</text>
+
+      <!-- Demand line: from (0,40) to (430,310) — pente neg -->
+      <line x1="60" y1="40" x2="430" y2="310" stroke="#c0392b" stroke-width="2.5"/>
+      <text x="434" y="314" font-size="13" font-family="'JetBrains Mono',monospace" fill="#c0392b">D</text>
+
+      <!-- Supply line: from (60,310) going up-right: (60,310) to (430,40) -->
+      <line x1="60" y1="310" x2="430" y2="40" stroke="#2c7873" stroke-width="2.5"/>
+      <text x="434" y="39" font-size="13" font-family="'JetBrains Mono',monospace" fill="#2c7873">O</text>
+
+      <!-- Equilibrium: intersection at midpoint (245, 175) -->
+      <circle cx="245" cy="175" r="8" fill="#1a1a2e" stroke="white" stroke-width="2"/>
+      <line x1="245" y1="175" x2="245" y2="310" stroke="#1a1a2e" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <line x1="60" y1="175" x2="245" y2="175" stroke="#1a1a2e" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <text x="252" y="171" font-size="13" font-family="'Source Serif 4',serif" fill="#1a1a2e" font-weight="bold">E*</text>
+      <text x="26" y="179" font-size="13" font-family="'JetBrains Mono',monospace" fill="#1a1a2e">p*</text>
+      <text x="233" y="328" font-size="13" font-family="'JetBrains Mono',monospace" fill="#1a1a2e">Q*</text>
+
+      <!-- Labels surplus -->
+      <text x="80" y="130" font-size="12" font-family="'Source Serif 4',serif" fill="#2c7873" font-style="italic">Surplus</text>
+      <text x="80" y="146" font-size="12" font-family="'Source Serif 4',serif" fill="#2c7873" font-style="italic">consommateur</text>
+      <text x="290" y="130" font-size="12" font-family="'Source Serif 4',serif" fill="#c0392b" font-style="italic">Surplus</text>
+      <text x="290" y="146" font-size="12" font-family="'Source Serif 4',serif" fill="#c0392b" font-style="italic">producteur</text>
+    </svg>
+    <figcaption>L'équilibre E* est l'intersection des courbes d'offre et de demande. Le surplus total (bien-être) est maximisé à cet équilibre.</figcaption>
+  </div>
+
+  <h3>4.2 Élasticités de l'Offre et de la Demande</h3>
+  <div class="formula-grid">
+    <div class="formula-block">
+      <span class="f-label">Élasticité-Prix de la Demande</span>
+      <span class="f-main">ε_D = (ΔQ_D/Q_D) / (Δp/p)</span>
+      <span class="f-desc">ε_D &lt; 0 : demande décroissante en p<br>|ε| &gt; 1 : demande élastique<br>|ε| &lt; 1 : demande inélastique</span>
+    </div>
+    <div class="formula-block">
+      <span class="f-label">Élasticité-Prix de l'Offre</span>
+      <span class="f-main">ε_O = (ΔQ_O/Q_O) / (Δp/p)</span>
+      <span class="f-desc">ε_O &gt; 0 : offre croissante en p<br>Court terme : ε_O faible<br>Long terme : ε_O élevé (ajustement possible)</span>
+    </div>
+  </div>
+
+  <h3>4.3 Structures de Marché</h3>
+  <table>
+    <thead><tr><th>Structure</th><th>Nb. offreurs</th><th>Nb. demandeurs</th><th>Pouvoir de marché</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Concurrence pure et parfaite (CPP)</strong></td><td>Très grand</td><td>Très grand</td><td>Aucun — price taker</td></tr>
+      <tr><td><strong>Monopole</strong></td><td>1</td><td>Très grand</td><td>Total côté offre</td></tr>
+      <tr><td><strong>Monopsone</strong></td><td>Très grand</td><td>1</td><td>Total côté demande</td></tr>
+      <tr><td><strong>Oligopole</strong></td><td>Quelques-uns</td><td>Très grand</td><td>Partiel — interaction stratégique</td></tr>
+      <tr><td><strong>Concurrence monopolistique</strong></td><td>Grand</td><td>Grand</td><td>Partiel — différenciation</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.4 Le Théorème de l'Équilibre Général (Walras)</h3>
+  <div class="formula-block">
+    <span class="f-label">Loi de Walras</span>
+    <span class="f-main">∑ᵢ pᵢ · Zᵢ(p) = 0</span>
+    <span class="f-desc">
+      Zᵢ(p) = Q_Dᵢ(p) − Q_Oᵢ(p) : excès de demande sur le marché i<br>
+      Si (n−1) marchés sont en équilibre, le nᵉ l'est aussi nécessairement<br>
+      Base de l'équilibre général de Arrow-Debreu (1954)
+    </span>
+  </div>
+
+  <div class="key-points">
+    <p class="kp-title">⚑ À retenir — Chapitre IV</p>
+    <ul>
+      <li>Équilibre : <strong>Q_D(p*) = Q_O(p*)</strong></li>
+      <li>En CPP, l'équilibre de marché est <strong>Pareto-optimal</strong> (1er théorème du bien-être)</li>
+      <li>Les élasticités déterminent le partage du surplus entre offreurs et demandeurs</li>
+      <li>Toute taxe ou subvention crée une <strong>perte sèche</strong> (deadweight loss)</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="chapter-divider">
+
+<!-- ════════════════════════════════════════════════════════════
+     CHAPITRE V — DÉTERMINATION DU PRIX
+════════════════════════════════════════════════════════════ -->
+<div class="chapter" id="ch5">
+  <p class="chapter-num">Chapitre V</p>
+  <h2>La Détermination du Prix</h2>
+
+  <h3>5.1 Prix en Concurrence Pure et Parfaite</h3>
+  <p>En CPP, les entreprises sont <strong>price-takers</strong> : elles n'ont aucun pouvoir sur le prix, fixé par le marché. La firme maximise son profit en choisissant Q tel que :</p>
+  <div class="formula-block">
+    <span class="f-label">Règle de Prix — CPP</span>
+    <span class="f-main">p = Cm(Q*)</span>
+    <span class="f-desc">
+      La recette marginale Rm = p (prix donné)<br>
+      Profit : π = (p − CTM) · Q*<br>
+      Si p &lt; CVM min → la firme ferme (court terme)<br>
+      Si p &lt; CTM min → la firme sort du marché (long terme)
+    </span>
+  </div>
+
+  <h3>5.2 Prix sous Monopole</h3>
+  <p>Le monopole est <strong>price-maker</strong> : il fixe le prix en tenant compte de l'élasticité de la demande. Il maximise son profit en choisissant Q tel que Rm = Cm :</p>
+  <div class="formula-block">
+    <span class="f-label">Recette Marginale du Monopole</span>
+    <span class="f-main">Rm = p · (1 + 1/ε_D)</span>
+    <span class="f-desc">
+      Condition d'optimum : Rm = Cm<br>
+      → p · (1 + 1/ε_D) = Cm<br>
+      Règle de Lerner : (p − Cm)/p = −1/ε_D = Indice de Lerner L<br>
+      L ∈ [0,1] : mesure du pouvoir de marché (0 = CPP, 1 = monopole pur)
+    </span>
+  </div>
+
+  <!-- GRAPH: Monopole vs CPP -->
+  <div class="graph-wrap">
+    <p class="graph-title">Prix de Monopole vs. Prix Concurrentiel — Perte Sèche</p>
+    <svg viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg" style="max-width:500px;width:100%;">
+      <defs>
+        <marker id="ah6" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a2e"/>
+        </marker>
+      </defs>
+      <!-- Deadweight loss triangle fill -->
+      <polygon points="230,110 290,170 230,170" fill="rgba(255,165,0,0.30)" stroke="none"/>
+
+      <line x1="50" y1="320" x2="460" y2="320" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah6)"/>
+      <line x1="50" y1="320" x2="50" y2="20" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#ah6)"/>
+      <text x="464" y="324" font-size="13" font-family="'Source Serif 4',serif" fill="#1a1a2e">Q</text>
+      <text x="32" y="16" font-size="13" font-family="'Source Serif 4',serif" fill="#1a1a2e">P</text>
+
+      <!-- Demand: D from (50,40) to (450,320) -->
+      <line x1="50" y1="40" x2="450" y2="320" stroke="#c0392b" stroke-width="2.5"/>
+      <text x="453" y="323" font-size="13" font-family="'JetBrains Mono',monospace" fill="#c0392b">D</text>
+
+      <!-- MR (Rm): starts at same y-intercept, twice as steep -->
+      <!-- Rm = 40 + (320-40)/400*(2*x - 50 - 50) ... simpler: same y intercept as D, ends at midpoint of Q axis -->
+      <!-- D: P = 40 + (320-40)/400 * (Q_screen-50) ... Rm has double slope -->
+      <!-- screen: D y = 40 + 0.7*(x-50); Rm y = 40 + 1.4*(x-50) -->
+      <!-- Rm = 320 when 280 = 1.4*(x-50) → x = 250 -->
+      <line x1="50" y1="40" x2="250" y2="320" stroke="#8e44ad" stroke-width="2" stroke-dasharray="8,4"/>
+      <text x="254" y="323" font-size="12" font-family="'JetBrains Mono',monospace" fill="#8e44ad">Rm</text>
+
+      <!-- MC (Cm): horizontal line for simplicity at y=170 -->
+      <line x1="50" y1="200" x2="420" y2="200" stroke="#2c7873" stroke-width="2"/>
+      <text x="422" y="199" font-size="12" font-family="'JetBrains Mono',monospace" fill="#2c7873">Cm</text>
+
+      <!-- Monopoly: Rm=Cm at Q_m. Rm=200: 40+1.4*(x-50)=200 → 1.4x=273 → x=195; y_D at x=195: 40+0.7*145=141.5≈142 -->
+      <!-- Competitive: D=Cm: 40+0.7*(x-50)=200 → 0.7x=225 → x=321; y=200 -->
+      <!-- Vertical at Qm screen x=230 -->
+      <line x1="230" y1="110" x2="230" y2="320" stroke="#1a1a2e" stroke-width="1" stroke-dasharray="5,3" opacity="0.6"/>
+      <line x1="50" y1="110" x2="230" y2="110" stroke="#1a1a2e" stroke-width="1" stroke-dasharray="5,3" opacity="0.6"/>
+      <!-- Vertical at Qc screen x=290 -->
+      <line x1="290" y1="200" x2="290" y2="320" stroke="#2c7873" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
+      <line x1="50" y1="200" x2="290" y2="200" stroke="none"/>
+
+      <!-- Points -->
+      <circle cx="230" cy="110" r="6" fill="#b8860b" stroke="white" stroke-width="2"/>
+      <circle cx="290" cy="200" r="6" fill="#2c7873" stroke="white" stroke-width="2"/>
+
+      <!-- Labels -->
+      <text x="18" y="114" font-size="12" font-family="'JetBrains Mono',monospace" fill="#b8860b">p_M</text>
+      <text x="18" y="204" font-size="12" font-family="'JetBrains Mono',monospace" fill="#2c7873">p_C</text>
+      <text x="218" y="337" font-size="11" font-family="'JetBrains Mono',monospace" fill="#b8860b">Q_M</text>
+      <text x="277" y="337" font-size="11" font-family="'JetBrains Mono',monospace" fill="#2c7873">Q_C</text>
+
+      <!-- DWL label -->
+      <text x="235" y="148" font-size="11" font-family="'Source Serif 4',serif" fill="#e67e22" font-style="italic">Perte</text>
+      <text x="235" y="163" font-size="11" font-family="'Source Serif 4',serif" fill="#e67e22" font-style="italic">sèche</text>
+    </svg>
+    <figcaption>Le monopole fixe Q_M &lt; Q_C et p_M &gt; p_C. Le triangle orange représente la perte sèche de bien-être social (deadweight loss).</figcaption>
+  </div>
+
+  <h3>5.3 Prix et Politique de Prix — Cas Spéciaux</h3>
+  <div class="formula-grid">
+    <div class="formula-block">
+      <span class="f-label">Discrimination par les Prix (1er degré)</span>
+      <span class="f-main">p(Q) = P_D(Q)</span>
+      <span class="f-desc">Le monopoleur extrait tout le surplus du consommateur<br>Q produit = Q concurrentiel : pas de perte sèche<br>Surplus producteur = surplus total</span>
+    </div>
+    <div class="formula-block">
+      <span class="f-label">Effet d'une Taxe Unitaire t</span>
+      <span class="f-main">p_acheteur − p_vendeur = t</span>
+      <span class="f-desc">Incidence fiscale : Δp_acheteur = t · ε_O/(ε_O − ε_D)<br>Plus la demande est inélastique, plus l'acheteur supporte la taxe<br>Perte sèche : DWL = ½ · t · ΔQ</span>
+    </div>
+  </div>
+
+  <h3>5.4 Synthèse — Détermination du Prix selon la Structure de Marché</h3>
+  <table>
+    <thead><tr><th>Structure</th><th>Condition d'optimum</th><th>Prix</th><th>Bien-être</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CPP</strong></td><td>p = Cm</td><td>p = p_marché</td><td>Pareto-optimal</td></tr>
+      <tr><td><strong>Monopole</strong></td><td>Rm = Cm</td><td>p &gt; Cm</td><td>Perte sèche</td></tr>
+      <tr><td><strong>Oligopole (Cournot)</strong></td><td>Rm_i = Cm_i</td><td>p entre CPP et monopole</td><td>Perte partielle</td></tr>
+      <tr><td><strong>Monopole discriminant (1er degré)</strong></td><td>p(Q) = P_D(Q)</td><td>Variable</td><td>Efficient mais inéquitable</td></tr>
+    </tbody>
+  </table>
+
+  <div class="formula-block" style="margin-top:24px;">
+    <span class="f-label">Règle de Ramsey-Boiteux (tarification optimale)</span>
+    <span class="f-main">(pᵢ − Cmᵢ)/pᵢ = λ/εᵢ</span>
+    <span class="f-desc">
+      Tarification optimale en présence de contrainte budgétaire (monopole naturel, services publics)<br>
+      Les biens les moins élastiques supportent la plus grande marge<br>
+      λ : multiplicateur de Lagrange associé à la contrainte de profit
+    </span>
+  </div>
+
+  <div class="key-points">
+    <p class="kp-title">⚑ À retenir — Chapitre V</p>
+    <ul>
+      <li>CPP : <strong>p = Cm</strong> — prix = coût marginal, profit nul à long terme</li>
+      <li>Monopole : <strong>Rm = Cm</strong> — prix &gt; Cm, indice de Lerner L = (p−Cm)/p = 1/|ε|</li>
+      <li>Plus l'élasticité est faible, plus le pouvoir de marché est fort et la marge élevée</li>
+      <li>Toute intervention sur les prix (taxe, prix plafond) génère une perte sèche sauf en CPP</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<footer>
+  <span>μ</span> Cours de Microéconomie — Formules &amp; Graphiques essentiels &nbsp;|&nbsp; Licence / Prépa / Master 1
+</footer>
+
+</body>
+</html>
